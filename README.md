@@ -25,6 +25,9 @@ passwd = "your password"
 
 db = "your database name" 
 
+Run
+===================
+python export.py
 
 Output
 ===================
