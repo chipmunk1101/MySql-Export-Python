@@ -26,4 +26,8 @@ db = "your database name"
 
 Output
 ===================
-The resultant file will be stored at yout HOME dir with the name backup.sql
+The resultant file will be stored in your HOME path with the name backup.sql
+
+Performance
+===================
+This code runs in O(n^3) but that is asymptotic, so unless you have a very very very large number of tables(not data, tables) you don't have to worry. I m also trying to improve.
