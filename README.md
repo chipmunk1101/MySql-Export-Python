@@ -4,6 +4,8 @@ MySql-Export-Python
 If you are a Django-Mysql user you know the pain of using South to migrate. This program exports MySql a database based on the dependency of the tables within the database. You can just dump the database and import back without pain after syncdb(for django)
 
 
+Even if you are not a django user you can still use this script to export the mysql accurately based on your database dependiencies
+
 Requirements
 ===================
 
