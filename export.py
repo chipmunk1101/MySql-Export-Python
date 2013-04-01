@@ -29,18 +29,27 @@ cur.execute("SELECT table_name, referenced_table_name\
                             IS NOT NULL ORDER BY table_name, column_name;")
 
 for table in cur.fetchall():
-    graph[table[0]].append(table[1])
+    if table[1] not in graph[table[0]]:
+        graph[table[0]].append(table[1])
 
 graph = OrderedDict(sorted(graph.viewitems(), key=lambda x: len(x[1])))
 
 for item in graph:
-    tables.append(item)
-    dependent_tables = [key for key, value in graph.iteritems() if item \
-                        in value]
-    if dependent_tables:
-        for table in dependent_tables:
-            graph[table].remove(item)
+    print str(item) + ":" + str(graph[item])
 
+while len(graph) > 0:
+    for item in graph:
+        if len(graph[item]) == 0:
+            tables.append(item)
+            dependent_tables = [key for key, value in graph.iteritems() if item \
+                                in value]
+            if dependent_tables:
+                for table in dependent_tables:
+                    graph[table].remove(item)
+            del graph[item]
+
+    graph = OrderedDict(sorted(graph.viewitems(), key=lambda x: len(x[1])))
+   
 for table in tables:
     cur.execute("SHOW CREATE TABLE `" + str(table) + "`;")
     table_details = str(cur.fetchone()[1]).replace("CREATE TABLE",\
@@ -61,7 +70,7 @@ for table in tables:
         data += ");\n"
     data += "\n\n"
     
-print data
+#print data
 now = datetime.datetime.now()
 filename = str(os.getenv("HOME")) + "/backup.sql"
 
