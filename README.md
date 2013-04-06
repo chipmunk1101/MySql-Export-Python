@@ -27,7 +27,7 @@ db = "your database name"
 
 Run
 ===================
-python export.py
+$ python export.py
 
 Output
 ===================
